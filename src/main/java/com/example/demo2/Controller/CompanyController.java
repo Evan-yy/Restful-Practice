@@ -6,25 +6,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/companies")
 public class CompanyController {
 
     @Autowired
     CompanyRepository companyRepository;
 
-    @GetMapping("/companies")
+    @GetMapping("/")
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
 
-    @GetMapping("/companies/{companyId}")
+    @GetMapping("/{companyId}")
     public Company getCompanyById(@PathVariable int companyId) {
         return companyRepository.findByCompanyId(companyId);
     }
 
-    @GetMapping("/companies/{companyId}/employees")
+    @GetMapping("/{companyId}/employees")
     public List<Employee> getAllEmployeesInCompany(@PathVariable int companyId) {
         return companyRepository.findEmployeesInCompany(companyId);
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public List<Company> getAllCompaniesByPage(@RequestParam Integer page,@RequestParam Integer size){
+        return companyRepository.findAllCompaniesByPage(page,size);
     }
 
 }
