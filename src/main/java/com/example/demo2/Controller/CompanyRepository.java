@@ -38,4 +38,13 @@ public class CompanyRepository {
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
+
+    public List<Employee> findEmployeesInCompany(int companyId) {
+        return companies
+                .stream()
+                .filter(company -> company.getId() == companyId)
+                .findFirst()
+                .orElseThrow(CompanyNotFoundException::new)
+                .getEmployees();
+    }
 }
