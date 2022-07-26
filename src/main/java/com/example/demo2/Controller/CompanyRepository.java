@@ -52,7 +52,7 @@ public class CompanyRepository {
     public List<Company> findAllCompaniesByPage(Integer page, Integer size) {
         return companies
                 .stream()
-                .skip((page-1)*size)
+                .skip((page - 1) * size)
                 .limit(size)
                 .collect(Collectors.toList());
     }
@@ -66,8 +66,12 @@ public class CompanyRepository {
     public Company update(Integer companyId, Company company) {
         return companies
                 .stream()
-                .filter(c->c.getId()==companyId)
-                .findFirst().map(c->c.update(company))
+                .filter(c -> c.getId() == companyId)
+                .findFirst().map(c -> c.update(company))
                 .orElseThrow(CompanyNotFoundException::new);
+    }
+
+    public void delete(Integer companyId) {
+        companies.removeIf(company -> company.getId() == companyId);
     }
 }

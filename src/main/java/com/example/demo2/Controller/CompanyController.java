@@ -13,7 +13,7 @@ public class CompanyController {
     @Autowired
     CompanyRepository companyRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
@@ -29,19 +29,25 @@ public class CompanyController {
     }
 
     @GetMapping(params = {"page", "size"})
-    public List<Company> getAllCompaniesByPage(@RequestParam Integer page,@RequestParam Integer size){
-        return companyRepository.findAllCompaniesByPage(page,size);
+    public List<Company> getAllCompaniesByPage(@RequestParam Integer page, @RequestParam Integer size) {
+        return companyRepository.findAllCompaniesByPage(page, size);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Company createCompany(@RequestBody Company company){
+    public Company createCompany(@RequestBody Company company) {
         return companyRepository.insertCompany(company);
     }
 
     @PutMapping("/{companyId}")
-    public Company updateCompany(@PathVariable Integer companyId,@RequestBody Company company){
-        return companyRepository.update(companyId,company);
+    public Company updateCompany(@PathVariable Integer companyId, @RequestBody Company company) {
+        return companyRepository.update(companyId, company);
+    }
+
+    @DeleteMapping("/{companyId}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteCompanyById(@PathVariable("companyId") Integer companyId) {
+        companyRepository.delete(companyId);
     }
 
 }
