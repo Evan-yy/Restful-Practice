@@ -39,21 +39,21 @@ public class EmployeeRepository {
     }
 
     public Employee insert(Employee employee) {
-        employee.setId(employees.size()+1);
+        employee.setId(employees.size() + 1);
         employees.add(employee);
         return employee;
 
     }
 
     public Employee update(Integer employeeId, Employee updateEmployee) {
-        return employees.stream().filter(employee -> employee.getId()==employeeId).findFirst().map(employee -> employee.update(updateEmployee)).orElseThrow(EmployeeNotFoundException::new);
+        return employees.stream().filter(employee -> employee.getId() == employeeId).findFirst().map(employee -> employee.update(updateEmployee)).orElseThrow(EmployeeNotFoundException::new);
     }
 
     public void delete(Integer employeeId) {
-        employees.removeIf(employee -> employee.getId()==employeeId);
+        employees.removeIf(employee -> employee.getId() == employeeId);
     }
 
     public List<Employee> findAllEmployeeByPage(Integer page, Integer size) {
-        return employees.stream().skip((page-1)*size).limit(size).collect(Collectors.toList());
+        return employees.stream().skip((page - 1) * size).limit(size).collect(Collectors.toList());
     }
 }

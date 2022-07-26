@@ -30,24 +30,24 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee){
+    public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.insert(employee);
     }
 
-    @PutMapping("/{employeeId}" )
-    public Employee updateEmployee(@PathVariable("employeeId") Integer employeeId,@RequestBody Employee updateEmployee){
-        return employeeRepository.update(employeeId,updateEmployee);
+    @PutMapping("/{employeeId}")
+    public Employee updateEmployee(@PathVariable("employeeId") Integer employeeId, @RequestBody Employee updateEmployee) {
+        return employeeRepository.update(employeeId, updateEmployee);
     }
 
     @DeleteMapping("/{employeeId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteEmployee(@PathVariable("employeeId") Integer employeeId){
-         employeeRepository.delete(employeeId);
+    public void deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
+        employeeRepository.delete(employeeId);
     }
 
-    @GetMapping(params = {"page","size"})
-    public List<Employee> getAllEmployeeByPage(@RequestParam Integer page,@RequestParam Integer size){
-        return employeeRepository.findAllEmployeeByPage(page,size);
+    @GetMapping(params = {"page", "size"})
+    public List<Employee> getAllEmployeeByPage(@RequestParam Integer page, @RequestParam Integer size) {
+        return employeeRepository.findAllEmployeeByPage(page, size);
     }
 
 }
