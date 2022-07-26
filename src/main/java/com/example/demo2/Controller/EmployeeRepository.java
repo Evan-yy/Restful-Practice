@@ -47,7 +47,12 @@ public class EmployeeRepository {
     }
 
     public Employee update(Integer employeeId, Employee updateEmployee) {
-        return employees.stream().filter(employee -> employee.getId() == employeeId).findFirst().map(employee -> employee.update(updateEmployee)).orElseThrow(EmployeeNotFoundException::new);
+        return employees
+                .stream()
+                .filter(employee -> employee.getId() == employeeId)
+                .findFirst()
+                .map(employee -> employee.update(updateEmployee))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     public void delete(Integer employeeId) {

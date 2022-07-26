@@ -36,4 +36,10 @@ public class Company {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+    public Company update(Company company) {
+        this.companyName = company.getCompanyName();
+        this.employees = company.getEmployees();
+        return company;
+    }
 }
