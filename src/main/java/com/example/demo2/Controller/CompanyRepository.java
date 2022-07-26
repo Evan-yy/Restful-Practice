@@ -1,5 +1,6 @@
 package com.example.demo2.Controller;
 
+import com.example.demo2.Exception.CompanyNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -28,5 +29,13 @@ public class CompanyRepository {
 
     public List<Company> findAll() {
         return companies;
+    }
+
+    public Company findByCompanyId(int companyId) {
+        return companies
+                .stream()
+                .filter(company -> company.getId() == companyId)
+                .findFirst()
+                .orElseThrow(CompanyNotFoundException::new);
     }
 }
