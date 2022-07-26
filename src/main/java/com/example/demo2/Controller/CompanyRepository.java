@@ -52,4 +52,10 @@ public class CompanyRepository {
     public List<Company> findAllCompaniesByPage(Integer page, Integer size) {
         return companies.stream().skip((page-1)*size).limit(size).collect(Collectors.toList());
     }
+
+    public Company insertCompany(Company company) {
+        company.setId(companies.size());
+        companies.add(company);
+        return company;
+    }
 }

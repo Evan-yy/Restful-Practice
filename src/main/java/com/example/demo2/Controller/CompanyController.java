@@ -1,6 +1,7 @@
 package com.example.demo2.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,12 @@ public class CompanyController {
     @GetMapping(params = {"page", "size"})
     public List<Company> getAllCompaniesByPage(@RequestParam Integer page,@RequestParam Integer size){
         return companyRepository.findAllCompaniesByPage(page,size);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company createCompany(@RequestBody Company company){
+        return companyRepository.insertCompany(company);
     }
 
 }
