@@ -129,7 +129,29 @@ class EmployeeControllerTest {
 
         //when
         //then
-        client.perform(MockMvcRequestBuilders.delete("/employees/"+employeeId))
+        client.perform(MockMvcRequestBuilders.delete("/employees/" + employeeId))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
+
+    //getAllEmployeeByPage
+    @Test
+    void should_get_all_employee_when_call_get_all_employee_by_page_api_given_page_and_size() throws Exception {
+        //given
+        employeeService.insert(new Employee(1, "Susan", "F", 22, 7500));
+        employeeService.insert(new Employee(2, "Lily", "M", 23, 7800));
+
+
+        //when
+        //then
+        client.perform(MockMvcRequestBuilders.get("/employees").param("page", String.valueOf(2)).param("size", String.valueOf(1)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Lily"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(23))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("M"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(7800));
+
+    }
+
+
 }
