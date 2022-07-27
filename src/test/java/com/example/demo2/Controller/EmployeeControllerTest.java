@@ -57,7 +57,7 @@ class EmployeeControllerTest {
     @Test
     void should_create_an_employee_when_call_create_employee_api_given_service() throws Exception {
         //given
-        Employee employee = new Employee(5,"Lily","F", 22, 7500);
+        Employee employee = new Employee(5, "Lily", "F", 22, 7500);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(employee);
 
@@ -82,7 +82,7 @@ class EmployeeControllerTest {
 
         //when
         //then
-        client.perform(MockMvcRequestBuilders.get("/employees/"+employeeId))
+        client.perform(MockMvcRequestBuilders.get("/employees/" + employeeId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Susan"));
     }
@@ -96,26 +96,40 @@ class EmployeeControllerTest {
 
         //when
         //then
-        client.perform(MockMvcRequestBuilders.get("/employees").param("gender",gender))
+        client.perform(MockMvcRequestBuilders.get("/employees").param("gender", gender))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Susan"));
     }
 
-//updateEmployee
-@Test
-void should_get_employee_when_call_update_employee_given_employeeId_and_a_new_employee() throws Exception{
-    //given
-    employeeService.insert(new Employee(1, "Susan", "F", 22, 7500));
-    Employee newEmployee = new Employee(1,"Susan","F",23,8000);
-    int employeeId = 1;
+    //updateEmployee
+    @Test
+    void should_get_employee_when_call_update_employee_api_given_employeeId_and_a_new_employee() throws Exception {
+        //given
+        employeeService.insert(new Employee(1, "Susan", "F", 22, 7500));
+        Employee newEmployee = new Employee(1, "Susan", "F", 23, 8000);
+        int employeeId = 1;
 
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(newEmployee);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(newEmployee);
 
-    //when
-    //then
-    client.perform(MockMvcRequestBuilders.put("/employees/"+employeeId).contentType(MediaType.APPLICATION_JSON).content(json))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(8000));
-}
+        //when
+        //then
+        client.perform(MockMvcRequestBuilders.put("/employees/" + employeeId).contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(8000));
+    }
+
+    //deleteEmployee
+    @Test
+    void should_get_http_status_code_when_call_delete_employee_api_given_employeeId() throws Exception {
+        //given
+        employeeService.insert(new Employee(1, "Susan", "F", 22, 7500));
+        int employeeId = 1;
+
+
+        //when
+        //then
+        client.perform(MockMvcRequestBuilders.delete("/employees/"+employeeId))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }
