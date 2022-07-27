@@ -1,5 +1,7 @@
-package com.example.demo2.Controller;
+package com.example.demo2.Repoasitory;
 
+import com.example.demo2.Entity.Company;
+import com.example.demo2.Entity.Employee;
 import com.example.demo2.Exception.CompanyNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class CompanyRepository {
 
-    private ArrayList<Company> companies;
+    private final ArrayList<Company> companies;
 
     public CompanyRepository() {
         ArrayList<Employee> springEmployees = new ArrayList<>();
@@ -58,7 +60,6 @@ public class CompanyRepository {
     }
 
     public Company insertCompany(Company company) {
-        company.setId(companies.size());
         companies.add(company);
         return company;
     }

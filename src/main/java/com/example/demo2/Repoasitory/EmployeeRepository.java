@@ -1,5 +1,6 @@
-package com.example.demo2.Controller;
+package com.example.demo2.Repoasitory;
 
+import com.example.demo2.Entity.Employee;
 import com.example.demo2.Exception.EmployeeNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +41,6 @@ public class EmployeeRepository {
     }
 
     public Employee insert(Employee employee) {
-        employee.setId(employees.size() + 1);
         employees.add(employee);
         return employee;
 
@@ -61,5 +61,9 @@ public class EmployeeRepository {
 
     public List<Employee> findAllEmployeeByPage(Integer page, Integer size) {
         return employees.stream().skip((page - 1) * size).limit(size).collect(Collectors.toList());
+    }
+
+    public void clear() {
+        employees = new ArrayList<>();
     }
 }

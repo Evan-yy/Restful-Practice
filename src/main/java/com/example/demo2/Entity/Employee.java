@@ -1,4 +1,4 @@
-package com.example.demo2.Controller;
+package com.example.demo2.Entity;
 
 public class Employee {
 
